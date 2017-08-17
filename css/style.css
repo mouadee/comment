@@ -1,0 +1,12 @@
+textarea {
+  resize: none;
+}
+.comment {
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+}
+.send {
+  cursor: pointer;
+  margin-top: 10px
+}
