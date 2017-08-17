@@ -11,23 +11,35 @@
 
 <?php
 
+session_start();
+
 $conn = new mysqli("localhost", "root", "", "commentaire");
 
+if(!$conn) {
+
+  echo 'mysqli error '. mysqli_error();
+  exit();
+
+}
+
+if (isset($_POST['comnt'])) {
+  $comnt = $_POST['comnt'];
+  $date = time();
+  $sql = "INSERT INTO comment (comnt) VALUES ('$comnt')";
+  $result = mysqli_query($conn, $sql);
+
+}
 
 
-$comnt = $_POST['comnt'];
-$date = time();
-$sql = "INSERT INTO comment (comnt) VALUES ($comnt)";
-$result = mysqli_query($conn, $sql);
 
-
-$getcmnt = "SELECT * FROM comment";
-while ($row = mysqli_fetch_assoc($result)) {
-    echo "<div class='alert alert-success' role='alert'>". $comnt ."</div>";
+$commentQuery = "SELECT * FROM comment";
+$fetchDb = mysqli_query($conn, $commentQuery);
+while ($row = mysqli_fetch_assoc($fetchDb)) {
+    echo "<div class='alert alert-success' role='alert'>". $row['comnt'] ."</div>";
   }
 
+session_destroy();
 
-Var_dump($comnt) ;
  ?>
   <form method="post">
     <div class="form-group comment">
